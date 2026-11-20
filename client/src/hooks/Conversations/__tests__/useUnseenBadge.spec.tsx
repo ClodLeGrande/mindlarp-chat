@@ -19,11 +19,11 @@ function mountIcons() {
   const icon32 = document.createElement('link');
   icon32.rel = 'icon';
   icon32.setAttribute('sizes', '32x32');
-  icon32.href = 'assets/favicon-32x32.png';
+  icon32.href = 'assets/favicon-32x32-v2.png';
   const icon16 = document.createElement('link');
   icon16.rel = 'icon';
   icon16.setAttribute('sizes', '16x16');
-  icon16.href = 'assets/favicon-16x16.png';
+  icon16.href = 'assets/favicon-16x16-v2.png';
   document.head.append(icon32, icon16);
   return { icon32, icon16 };
 }
@@ -159,6 +159,6 @@ describe('useUnseenBadge', () => {
     mount(3, false);
 
     await waitFor(() => expect(document.title).toBe('LibreChat'));
-    expect(icons.icon32.href).toContain('assets/favicon-32x32.png');
+    expect(icons.icon32.href).toContain('assets/favicon-32x32-v2.png');
   });
 });

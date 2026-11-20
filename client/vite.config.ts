@@ -119,7 +119,7 @@ export default defineConfig(({ command }) => ({
           'assets/apple-touch-icon*.png',
           /** `manifest.webmanifest` is not listed: vite-plugin-pwa always appends it as an
            * additional manifest entry, so globbing it too duplicates the precache entry. */
-          'assets/maskable-icon.png',
+          'assets/maskable-icon-v2.png',
         ],
         globIgnores: [
           'images/**/*',
@@ -171,27 +171,27 @@ export default defineConfig(({ command }) => ({
         theme_color: '#009688',
         icons: [
           {
-            src: 'assets/favicon-32x32.png',
+            src: 'assets/favicon-32x32-v2.png',
             sizes: '32x32',
             type: 'image/png',
           },
           {
-            src: 'assets/favicon-16x16.png',
+            src: 'assets/favicon-16x16-v2.png',
             sizes: '16x16',
             type: 'image/png',
           },
           {
-            src: 'assets/apple-touch-icon-180x180.png',
+            src: 'assets/apple-touch-icon-180x180-v2.png',
             sizes: '180x180',
             type: 'image/png',
           },
           {
-            src: 'assets/icon-192x192.png',
+            src: 'assets/icon-192x192-v2.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'assets/maskable-icon.png',
+            src: 'assets/maskable-icon-v2.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
