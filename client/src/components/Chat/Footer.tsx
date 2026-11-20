@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Constants, hasConfiguredFooter } from 'librechat-data-provider';
 import type { TStartupConfig } from 'librechat-data-provider';
+import { DEFAULT_APP_TITLE } from '~/utils/documentTitle';
 import { useGetStartupConfig } from '~/data-provider';
 import { policyUrls } from '~/utils/policies';
 import { useLocalize } from '~/hooks';
@@ -18,7 +19,7 @@ type FooterProps = {
   configuredOnly?: boolean;
 };
 
-type FooterStartupConfig = Pick<Partial<TStartupConfig>, 'customFooter'> & {
+type FooterStartupConfig = Pick<Partial<TStartupConfig>, 'customFooter' | 'appTitle'> & {
   interface?: Pick<NonNullable<TStartupConfig['interface']>, 'privacyPolicy' | 'termsOfService'>;
 };
 
@@ -95,10 +96,7 @@ function Footer({ className, startupConfig, configuredOnly = false }: FooterProp
   /** The generic disclaimer is the part a conversation drops; the operator's own footer is not. */
   const genericFooter = configuredOnly
     ? ''
-    : '[LibreChat ' +
-      Constants.VERSION +
-      '](https://librechat.ai) - ' +
-      localize('com_ui_latest_footer');
+    : `${config?.appTitle ?? DEFAULT_APP_TITLE} ${Constants.VERSION} - ${localize('com_ui_latest_footer')}`;
   const mainContent = configuredFooter ?? genericFooter;
   const mainContentParts = mainContent === '' ? [] : mainContent.split('|');
 

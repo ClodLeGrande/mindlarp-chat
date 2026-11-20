@@ -24,14 +24,14 @@ export function buildSlackChannelManifest(input: {
     gateway = url.toString().replace(/\/+$/, '');
   }
   const binding = `${encodeURIComponent(input.tenantId)}/${encodeURIComponent(input.channelId)}`;
-  const title = input.name.trim() || 'LibreChat';
+  const title = input.name.trim() || 'MindLarp Chat';
   const name = [...title].slice(0, 35).join('');
   const botName =
     title
       .toLowerCase()
       .replace(/[^a-z0-9._-]+/g, '_')
       .replace(/^_+|_+$/g, '')
-      .slice(0, 80) || 'librechat_agent';
+      .slice(0, 80) || 'mindlarp_agent';
   return {
     display_information: { name },
     features: {

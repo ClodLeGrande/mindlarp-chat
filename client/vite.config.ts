@@ -164,8 +164,8 @@ export default defineConfig(({ command }) => ({
       },
       includeAssets: [],
       manifest: {
-        name: 'LibreChat',
-        short_name: 'LibreChat',
+        name: 'MindLarp Chat',
+        short_name: 'MindLarp Chat',
         display: 'standalone',
         background_color: '#000000',
         theme_color: '#009688',

@@ -34,6 +34,6 @@ services:
       CHANNEL_SERVICE_TOKEN: ${CHANNEL_SERVICE_TOKEN:-}
       CHANNEL_TENANT_ID: ${CHANNEL_TENANT_ID:-_}
       CHANNEL_ID: ${CHANNEL_ID:-}
-      APP_TITLE: ${APP_TITLE:-LibreChat}
+      APP_TITLE: ${APP_TITLE:-MindLarp Chat}
       SLACK_APP_TOKEN: ${SLACK_APP_TOKEN:-}
     stop_grace_period: 10s

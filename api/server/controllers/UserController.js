@@ -70,7 +70,7 @@ const emailChangeService = createEmailChangeService(
     sendEmail,
     getAppConfig,
     clientDomain: process.env.DOMAIN_CLIENT ?? 'http://localhost:3080',
-    appName: process.env.APP_TITLE || 'LibreChat',
+    appName: process.env.APP_TITLE || 'MindLarp Chat',
   }),
 );
 

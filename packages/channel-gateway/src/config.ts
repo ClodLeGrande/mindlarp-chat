@@ -25,7 +25,7 @@ const environment = z.object({
     .min(1)
     .max(40)
     .regex(/^[^<>|\p{Cc}]+$/u)
-    .default('LibreChat'),
+    .default('MindLarp Chat'),
   /** Optional deployment assertion; the service policy selects the actual ingress. */
   SLACK_TRANSPORT: z.enum(['socket_mode', 'webhook']).optional(),
   SLACK_APP_TOKEN: z.string().optional(),

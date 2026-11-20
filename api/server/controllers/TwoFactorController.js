@@ -21,7 +21,7 @@ const {
   awaitAuthUserDocEviction,
 } = require('~/models');
 
-const safeAppTitle = (process.env.APP_TITLE || 'LibreChat').replace(/\s+/g, '');
+const safeAppTitle = (process.env.APP_TITLE || 'MindLarp Chat').replace(/\s+/g, '');
 
 /**
  * Enable 2FA for the user by generating a new TOTP secret and backup codes.

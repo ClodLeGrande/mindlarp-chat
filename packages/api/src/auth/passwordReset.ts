@@ -255,7 +255,7 @@ export async function sendPasswordResetNotice(
     email: user.email,
     subject: 'Password Reset Successfully',
     payload: {
-      appName: deps.appTitle || 'LibreChat',
+      appName: deps.appTitle || 'MindLarp Chat',
       name: user.name || user.username || user.email,
       year: new Date().getFullYear(),
     },

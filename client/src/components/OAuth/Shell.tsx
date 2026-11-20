@@ -18,7 +18,7 @@ export default function Shell({ icon: Icon, tone, title, children }: ShellProps)
   return (
     <div className="bg-surface-primary flex min-h-screen flex-col">
       <header className="mt-6 h-10 w-full">
-        <img src="assets/logo.svg" className="h-full w-full object-contain" alt="" />
+        <img src="assets/logo.png" className="h-full w-full object-contain" alt="" />
       </header>
       <main className="flex grow items-center justify-center p-6">
         <section

@@ -147,7 +147,7 @@ describe('buildSharedLinkStartupPayload', () => {
           }),
           {},
         ),
-      ).toEqual({ appTitle: 'LibreChat', interface: { codeHighlightThrottleMs } });
+      ).toEqual({ appTitle: 'MindLarp Chat', interface: { codeHighlightThrottleMs } });
     },
   );
 
@@ -204,7 +204,7 @@ describe('buildSharedLinkStartupPayload', () => {
     );
 
     expect(JSON.parse(JSON.stringify(payload))).toEqual({
-      appTitle: 'LibreChat',
+      appTitle: 'MindLarp Chat',
       interface: {
         privacyPolicy: {},
         termsOfService: { externalUrl: 'https://example.com/tos', openNewTab: true },
@@ -228,7 +228,7 @@ describe('buildSharedLinkStartupPayload', () => {
       {},
     );
 
-    expect(payload).toEqual({ appTitle: 'LibreChat', interface: { theme } });
+    expect(payload).toEqual({ appTitle: 'MindLarp Chat', interface: { theme } });
   });
 
   it('omits a theme that does not match the deployment theme schema', () => {
@@ -237,7 +237,7 @@ describe('buildSharedLinkStartupPayload', () => {
       {},
     );
 
-    expect(payload).toEqual({ appTitle: 'LibreChat' });
+    expect(payload).toEqual({ appTitle: 'MindLarp Chat' });
   });
 
   it('serves the share tenant theme rather than the viewer tenant theme', async () => {
@@ -259,7 +259,7 @@ describe('buildSharedLinkStartupPayload', () => {
     );
 
     expect(payload).toEqual({
-      appTitle: 'LibreChat',
+      appTitle: 'MindLarp Chat',
       analyticsGtmId: 'GTM-XYZ',
       interface: { analyticsConsent: false },
     });
@@ -271,6 +271,6 @@ describe('buildSharedLinkStartupPayload', () => {
       {},
     );
 
-    expect(payload).toEqual({ appTitle: 'LibreChat' });
+    expect(payload).toEqual({ appTitle: 'MindLarp Chat' });
   });
 });

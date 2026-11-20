@@ -22,6 +22,7 @@ import { useAuthContext, useDocumentTitle, useLocalize } from '~/hooks';
 import OpenSidebar from '~/components/Chat/Menus/OpenSidebar';
 import useDrawerViewport from '~/hooks/Nav/useDrawerViewport';
 import { LocalizedDateRangePicker } from '~/components/ui';
+import { DEFAULT_APP_TITLE } from '~/utils/documentTitle';
 import { getRollingDateRange } from './dateRange';
 import { cn } from '~/utils';
 
@@ -615,7 +616,7 @@ export default function InsightsView() {
   );
   const displayedAgentIds = pendingAgentIds ?? effectiveAgentIds;
 
-  useDocumentTitle(`${localize('com_insights_title')} | LibreChat`);
+  useDocumentTitle(`${localize('com_insights_title')} | ${DEFAULT_APP_TITLE}`);
 
   useEffect(
     () => () => {

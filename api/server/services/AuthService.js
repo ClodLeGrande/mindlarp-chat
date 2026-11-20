@@ -292,7 +292,7 @@ const sendVerificationEmail = async (user) => {
     email,
     subject: 'Verify your email',
     payload: {
-      appName: process.env.APP_TITLE || 'LibreChat',
+      appName: process.env.APP_TITLE || 'MindLarp Chat',
       name: user.name || user.username || email,
       verificationLink: verificationLink,
       year: new Date().getFullYear(),
@@ -548,7 +548,7 @@ const requestPasswordReset = async (req) => {
       user,
       emailEnabled: checkEmailConfig(),
       clientUrl: domains.client,
-      appName: process.env.APP_TITLE || 'LibreChat',
+      appName: process.env.APP_TITLE || 'MindLarp Chat',
     },
   );
 };
@@ -952,7 +952,7 @@ const resendVerificationEmail = async (req) => {
       email: user.email,
       subject: 'Verify your email',
       payload: {
-        appName: process.env.APP_TITLE || 'LibreChat',
+        appName: process.env.APP_TITLE || 'MindLarp Chat',
         name: user.name || user.username || user.email,
         verificationLink: verificationLink,
         year: new Date().getFullYear(),

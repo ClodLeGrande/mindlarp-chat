@@ -3,6 +3,7 @@ import copy from 'copy-to-clipboard';
 import { Constants } from 'librechat-data-provider';
 import { CopyButton } from '@librechat/chat/components';
 import type { TStartupConfig } from 'librechat-data-provider';
+import { DEFAULT_APP_TITLE } from '~/utils/documentTitle';
 import { useGetStartupConfig } from '~/data-provider';
 import { useLocalize } from '~/hooks';
 
@@ -25,9 +26,10 @@ function formatBuildDate(raw: string | null | undefined): string {
 function buildDiagnosticsBlob(
   version: string,
   buildInfo: TStartupConfig['buildInfo'] | undefined,
+  appTitle?: string,
 ): string {
   const lines: string[] = [
-    `LibreChat version: ${version}`,
+    `${appTitle || DEFAULT_APP_TITLE} version: ${version}`,
     `Commit: ${buildInfo?.commit ?? UNKNOWN_PLACEHOLDER}`,
     `Branch: ${buildInfo?.branch ?? UNKNOWN_PLACEHOLDER}`,
     `Build date: ${formatBuildDate(buildInfo?.buildDate)}`,
@@ -55,8 +57,8 @@ function About() {
   const version: string = Constants.VERSION;
 
   const diagnosticsBlob = useMemo(
-    () => buildDiagnosticsBlob(version, buildInfo),
-    [version, buildInfo],
+    () => buildDiagnosticsBlob(version, buildInfo, startupConfig?.appTitle),
+    [version, buildInfo, startupConfig?.appTitle],
   );
 
   useEffect(

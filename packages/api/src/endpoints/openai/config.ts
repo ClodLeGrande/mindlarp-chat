@@ -248,9 +248,9 @@ export function getOpenAIConfig(
   if (useOpenRouter || isVercel) {
     configOptions.defaultHeaders = Object.assign(
       {
-        'HTTP-Referer': 'https://librechat.ai',
-        'X-Title': 'LibreChat',
-        'X-OpenRouter-Title': 'LibreChat',
+        'HTTP-Referer': process.env.DOMAIN_CLIENT ?? 'http://localhost:3080',
+        'X-Title': 'MindLarp Chat',
+        'X-OpenRouter-Title': 'MindLarp Chat',
         'X-OpenRouter-Categories': 'general-chat,personal-agent,programming-app',
       },
       headers,

@@ -85,11 +85,24 @@ describe('About', () => {
       expect(mockCopy).toHaveBeenCalledTimes(1);
       const [blob, options] = mockCopy.mock.calls[0] as [string, { format: string }];
       expect(options).toEqual({ format: 'text/plain' });
-      expect(blob).toContain(`LibreChat version: ${Constants.VERSION}`);
+      expect(blob).toContain(`MindLarp Chat version: ${Constants.VERSION}`);
       expect(blob).toContain(`Commit: ${populatedBuildInfo.commit}`);
       expect(blob).toContain(`Branch: ${populatedBuildInfo.branch}`);
       expect(blob).toContain('Build date: 2026-04-20 12:00:00 UTC');
       expect(blob).toContain('User agent: ');
+    });
+
+    it('names the deployment app title in the blob', async () => {
+      mockUseGetStartupConfig.mockReturnValue({
+        data: { appTitle: 'Acme Chat', buildInfo: populatedBuildInfo },
+      });
+      const user = userEvent.setup();
+      render(<About />);
+
+      await user.click(screen.getByRole('button', { name: /com_nav_about_diagnostics_copy/i }));
+
+      const [blob] = mockCopy.mock.calls[0] as [string];
+      expect(blob).toContain(`Acme Chat version: ${Constants.VERSION}`);
     });
 
     it('writes em-dash placeholders into the blob when buildInfo is missing', async () => {

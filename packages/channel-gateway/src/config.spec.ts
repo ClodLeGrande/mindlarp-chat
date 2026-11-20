@@ -10,7 +10,7 @@ const required = {
 describe('gateway configuration', () => {
   test('loads generic deployment defaults without private branding or optional Slack authority', () => {
     expect(loadConfig(required)).toMatchObject({
-      APP_TITLE: 'LibreChat',
+      APP_TITLE: 'MindLarp Chat',
       PORT: 8080,
       LISTEN_HOST: '0.0.0.0',
       LIBRECHAT_INTERNAL_URL: 'http://localhost:3080',
