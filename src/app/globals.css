@@ -1,0 +1,396 @@
+@import 'tailwindcss';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: 'Instrument Serif', Georgia, serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+:root {
+  --paper: #f7f6f3;
+  --surface: #fdfcfa;
+  --raised: #ffffff;
+  --ink: #1a1917;
+  --muted: #6b675e;
+  --line: #e4e1da;
+  --accent: #0f3ddb;
+  --accent-soft: #e9edfd;
+  --danger: #b3261e;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --paper: #121110;
+  --surface: #191816;
+  --raised: #211f1c;
+  --ink: #edebe6;
+  --muted: #9b968b;
+  --line: #2e2b26;
+  --accent: #8b9fff;
+  --accent-soft: #232b4d;
+  --danger: #f2b8b5;
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Uppercase micro-label used across the interface. */
+.label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------------------------
+   Chat markdown
+--------------------------------------------------------------------------- */
+.prose-chat {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.prose-chat > * + * {
+  margin-top: 0.75em;
+}
+
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3,
+.prose-chat h4 {
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.4em;
+}
+
+.prose-chat h1 {
+  font-size: 1.35em;
+}
+.prose-chat h2 {
+  font-size: 1.2em;
+}
+.prose-chat h3 {
+  font-size: 1.05em;
+}
+
+.prose-chat ul,
+.prose-chat ol {
+  padding-left: 1.4em;
+}
+
+.prose-chat ul {
+  list-style: disc;
+}
+
+.prose-chat ol {
+  list-style: decimal;
+}
+
+.prose-chat li + li {
+  margin-top: 0.3em;
+}
+
+.prose-chat a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-chat blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1em;
+  color: var(--muted);
+}
+
+.prose-chat hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 1.5em 0;
+}
+
+.prose-chat code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.35em;
+}
+
+.prose-chat table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.875em;
+  max-width: 100%;
+}
+
+.prose-chat th,
+.prose-chat td {
+  border: 1px solid var(--line);
+  padding: 0.45em 0.75em;
+  text-align: left;
+}
+
+.prose-chat th {
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.prose-chat img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* Code blocks */
+.code-block {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* highlight.js tokens mapped onto the editorial palette */
+.hljs-comment,
+.hljs-quote {
+  color: var(--muted);
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag {
+  color: var(--accent);
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition {
+  color: #1e7a46;
+}
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
+  color: #9a5b00;
+}
+.hljs-title,
+.hljs-section,
+.hljs-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable {
+  color: #7a3fa8;
+}
+.hljs-built_in,
+.hljs-type,
+.hljs-class {
+  color: #0b6e8a;
+}
+.hljs-deletion {
+  color: var(--danger);
+}
+
+[data-theme='dark'] .hljs-string,
+[data-theme='dark'] .hljs-regexp,
+[data-theme='dark'] .hljs-addition {
+  color: #7fc99a;
+}
+[data-theme='dark'] .hljs-number,
+[data-theme='dark'] .hljs-symbol {
+  color: #e0a458;
+}
+[data-theme='dark'] .hljs-attr,
+[data-theme='dark'] .hljs-variable {
+  color: #c9a0e8;
+}
+[data-theme='dark'] .hljs-built_in,
+[data-theme='dark'] .hljs-type {
+  color: #7cc4de;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+--------------------------------------------------------------------------- */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.25s ease-out both;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.stream-caret::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* Agent mode: a calm pulse on the armed toggle, stepping squares while tools
+   run, and an indeterminate hairline while the agent works. */
+@keyframes agent-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.7);
+  }
+}
+
+.agent-dot {
+  animation: agent-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes agent-step {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.agent-steps > span {
+  animation: agent-step 1.2s ease-in-out infinite;
+}
+
+.agent-steps > span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.agent-steps > span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes agent-track {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(410%);
+  }
+}
+
+.agent-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 25%;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: agent-track 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .stream-caret::after,
+  .agent-dot,
+  .agent-steps > span,
+  .agent-track::after {
+    animation: none;
+  }
+}

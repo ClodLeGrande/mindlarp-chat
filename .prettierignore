@@ -1,0 +1,8 @@
+node_modules
+.next
+out
+package-lock.json
+supabase/.temp
+supabase/config.toml
+.env.example
+src/lib/database.types.ts
