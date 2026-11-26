@@ -6,12 +6,12 @@ import 'server-only';
  * exchange we open a Supabase session via a service-side magic-link token.
  */
 
-export type OAuthProvider = 'google' | 'github';
+export type OAuthProvider = 'google' | 'github' | 'discord';
 
-export const OAUTH_PROVIDERS: OAuthProvider[] = ['google', 'github'];
+export const OAUTH_PROVIDERS: OAuthProvider[] = ['google', 'github', 'discord'];
 
 export function isOAuthProvider(value: string): value is OAuthProvider {
-  return value === 'google' || value === 'github';
+  return value === 'google' || value === 'github' || value === 'discord';
 }
 
 interface ProviderConfig {
@@ -32,12 +32,21 @@ export function providerConfig(provider: OAuthProvider): ProviderConfig {
       scope: 'openid email profile',
     };
   }
-  return {
+  if (provider === 'github') {
+    return {
     clientId: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     authorizeUrl: 'https://github.com/login/oauth/authorize',
     tokenUrl: 'https://github.com/login/oauth/access_token',
     scope: 'read:user user:email',
+    };
+  }
+  return {
+    clientId: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    authorizeUrl: 'https://discord.com/oauth2/authorize',
+    tokenUrl: 'https://discord.com/api/oauth2/token',
+    scope: 'identify email',
   };
 }
 
@@ -121,6 +130,32 @@ export async function exchangeCodeForProfile(
       name: profile.name ?? '',
       avatarUrl: profile.picture ?? '',
       providerUserId: profile.sub,
+    };
+  }
+
+  if (provider === 'discord') {
+    const response = await fetch('https://discord.com/api/users/@me', {
+      headers: { authorization: `Bearer ${token.access_token}` },
+    });
+    if (!response.ok) throw new Error('Could not read the Discord profile.');
+    const profile = (await response.json()) as {
+      id: string;
+      username: string;
+      global_name?: string | null;
+      avatar?: string | null;
+      email?: string | null;
+      verified?: boolean;
+    };
+    if (!profile.email || profile.verified !== true) {
+      throw new Error('The Discord account has no verified email.');
+    }
+    return {
+      email: profile.email.toLowerCase(),
+      name: profile.global_name ?? profile.username,
+      avatarUrl: profile.avatar
+        ? `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+        : '',
+      providerUserId: profile.id,
     };
   }
 
