@@ -1,9 +1,9 @@
 import 'server-only';
 
 /**
- * Direct Google / GitHub OAuth — the same "regular" client ids the main site
- * (mindlarp.com) uses. Supabase's OAuth providers are not involved; after the
- * exchange we open a Supabase session via a service-side magic-link token.
+ * Direct Google / GitHub / Discord OAuth. Supabase's OAuth providers are not
+ * involved; after the exchange we open a Supabase session via a service-side
+ * magic-link token. Accounts are matched by verified email.
  */
 
 export type OAuthProvider = 'google' | 'github' | 'discord';
@@ -34,11 +34,11 @@ export function providerConfig(provider: OAuthProvider): ProviderConfig {
   }
   if (provider === 'github') {
     return {
-    clientId: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    authorizeUrl: 'https://github.com/login/oauth/authorize',
-    tokenUrl: 'https://github.com/login/oauth/access_token',
-    scope: 'read:user user:email',
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      authorizeUrl: 'https://github.com/login/oauth/authorize',
+      tokenUrl: 'https://github.com/login/oauth/access_token',
+      scope: 'read:user user:email',
     };
   }
   return {
