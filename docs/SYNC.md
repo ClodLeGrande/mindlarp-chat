@@ -8,7 +8,7 @@ or the console's `public.profiles / projects / tasks`.
 | Concern            | Mechanism                                                                |
 | ------------------ | ------------------------------------------------------------------------ |
 | Accounts           | One identity per person, matched by verified email across all apps.      |
-| Chat sign-in       | Direct Google / GitHub OAuth with the site's regular client ids.         |
+| Chat sign-in       | Direct Google / GitHub / Discord OAuth with verified-email identity matching.         |
 | Site → chat SSO    | One-time handoff token (`public.sso_handoffs` → `/auth/handoff`).        |
 | Chat ↔ console SSO | Same Supabase project; optional shared cookie via `AUTH_COOKIE_DOMAIN`.  |
 | Statistics         | `chat.usage_events` + public views readable by the console and the site. |
@@ -45,6 +45,8 @@ GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
 GITHUB_CLIENT_ID=...
 GITHUB_CLIENT_SECRET=...
+DISCORD_CLIENT_ID=...
+DISCORD_CLIENT_SECRET=...
 ```
 
 ## 3. SSO from mindlarp.com (custom session auth)
@@ -102,8 +104,8 @@ Identity is matched **by email**: the same person lands in the same account.
 
 ## 3a. Google / GitHub login — direct OAuth, regular client ids
 
-The chat runs its **own** OAuth flow (`src/lib/oauth.ts`), exactly like
-mindlarp.com — Supabase's OAuth providers are **not** used:
+The chat runs its **own** OAuth flow (`src/lib/oauth.ts`) — Supabase's OAuth
+providers are **not** used:
 
 1. `/auth/oauth/google` (or `github`) sets a short-lived `state` cookie and
    redirects to the provider with `GOOGLE_CLIENT_ID` / `GITHUB_CLIENT_ID`.
@@ -119,6 +121,7 @@ uses): add the chat callbacks to the authorized redirect URIs:
 ```
 https://chat.mindlarp.com/auth/oauth/google/callback
 https://chat.mindlarp.com/auth/oauth/github/callback
+https://chat.mindlarp.com/auth/oauth/discord/callback
 ```
 
 No Supabase URL allow-list changes are needed for this flow. Accounts match

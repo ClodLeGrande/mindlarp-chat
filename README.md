@@ -26,7 +26,7 @@ Supabase (Auth, Postgres, Storage) · Vercel AI SDK 7 · deployed on Vercel.
   full data deletion.
 - **Usage** — per-request token / latency statistics, shared with the console.
 - **Sync** — one account with the MindLarp site and console. Sign-in is
-  **Google / GitHub only**, via direct OAuth with the same regular client ids
+  **Google / GitHub / Discord**, via direct OAuth with the same regular client ids
   as mindlarp.com (no Supabase OAuth providers, no passwords). One-time-token
   SSO from the site; shared usage views. See [docs/SYNC.md](docs/SYNC.md).
 
@@ -44,8 +44,8 @@ npm run setup:local               # Supabase in Docker (ports 563xx) + migration
 npm run dev                       # http://localhost:3000
 ```
 
-Sign-in is Google/GitHub only — set `GOOGLE_CLIENT_ID` / `GITHUB_CLIENT_ID`
-(+ secrets) in `.env.local` to test it locally. The seeded
+Sign-in supports Google, GitHub, and Discord. Set the corresponding client id
+and secret variables in `.env.local` to test each provider locally. The seeded
 `demo@mindlarp.local` account is used by the smoke script at the API level.
 
 Local Supabase: API `http://127.0.0.1:56321`, Studio `http://127.0.0.1:56323`,
@@ -104,9 +104,10 @@ agent request that must produce a downloadable PDF, and tests the SSO handoff
 3. Set in Vercel env: `NEXT_PUBLIC_SITE_URL=https://chat.mindlarp.com`
    (and `AUTH_COOKIE_DOMAIN=.mindlarp.com` for a shared session with the
    console), then redeploy.
-4. In the **same Google / GitHub OAuth apps the site uses**, add redirect URIs:
+4. In the **Google / GitHub OAuth apps the site uses**, add redirect URIs. In the Discord Developer Portal, OAuth2 → Redirects, add the Discord callback:
    - `https://chat.mindlarp.com/auth/oauth/google/callback`
    - `https://chat.mindlarp.com/auth/oauth/github/callback`
+  - `https://chat.mindlarp.com/auth/oauth/discord/callback`
 
 No code changes are needed — the app derives all callback URLs from
 `NEXT_PUBLIC_SITE_URL`.

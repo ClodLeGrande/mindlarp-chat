@@ -29,6 +29,14 @@ function GitHubIcon() {
   );
 }
 
+function DiscordIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M19.7 5.2A18.2 18.2 0 0 0 15.2 4l-.2.4a16.8 16.8 0 0 0-6 0L8.8 4a18.2 18.2 0 0 0-4.5 1.2C1.5 9.5.7 13.7 1.1 17.8a18.4 18.4 0 0 0 5.5 2.8l1.2-2a11.8 11.8 0 0 1-1.9-.9l.5-.4a13.2 13.2 0 0 0 11.2 0l.5.4a11.8 11.8 0 0 1-1.9.9l1.2 2a18.4 18.4 0 0 0 5.5-2.8c.5-4.8-.8-8.9-3.2-12.6ZM8.7 14.8c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Zm6.6 0c-1.1 0-2-1-2-2.2s.9-2.2 2-2.2 2 1 2 2.2-.9 2.2-2 2.2Z" />
+    </svg>
+  );
+}
+
 const BUTTON_CLASS =
   'flex h-10 cursor-pointer items-center justify-center gap-2.5 rounded-md border border-line bg-raised text-sm font-medium transition-colors hover:bg-surface';
 
@@ -45,6 +53,10 @@ export function OAuthButtons() {
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a href="/auth/oauth/github" className={BUTTON_CLASS}>
         <GitHubIcon /> Continue with GitHub
+      </a>
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+      <a href="/auth/oauth/discord" className={BUTTON_CLASS}>
+        <DiscordIcon /> Continue with Discord
       </a>
     </div>
   );
