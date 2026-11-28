@@ -1,22 +1,16 @@
+'use client';
+
+import { useState } from 'react';
+
+import { createClient } from '@/lib/supabase/client';
+
 function GoogleIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden>
-      <path
-        fill="#4285F4"
-        d="M23.5 12.27c0-.85-.08-1.66-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.26-2.09 3.57-5.17 3.57-8.81Z"
-      />
-      <path
-        fill="#34A853"
-        d="M12 24c3.24 0 5.96-1.07 7.93-2.91l-3.87-3c-1.07.72-2.44 1.15-4.06 1.15-3.13 0-5.78-2.11-6.72-4.96H1.29v3.1A12 12 0 0 0 12 24Z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M5.28 14.28a7.2 7.2 0 0 1 0-4.56v-3.1H1.29a12 12 0 0 0 0 10.76l3.99-3.1Z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 4.76c1.76 0 3.34.61 4.58 1.8l3.44-3.44A11.98 11.98 0 0 0 12 0 12 12 0 0 0 1.29 6.62l3.99 3.1C6.22 6.87 8.87 4.76 12 4.76Z"
-      />
+      <path fill="#4285F4" d="M23.5 12.27c0-.85-.08-1.66-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.26-2.09 3.57-5.17 3.57-8.81Z" />
+      <path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.93-2.91l-3.87-3c-1.07.72-2.44 1.15-4.06 1.15-3.13 0-5.78-2.11-6.72-4.96H1.29v3.1A12 12 0 0 0 12 24Z" />
+      <path fill="#FBBC05" d="M5.28 14.28a7.2 7.2 0 0 1 0-4.56v-3.1H1.29a12 12 0 0 0 0 10.76l3.99-3.1Z" />
+      <path fill="#EA4335" d="M12 4.76c1.76 0 3.34.61 4.58 1.8l3.44-3.44A11.98 11.98 0 0 0 12 0 12 12 0 0 0 1.29 6.62l3.99 3.1C6.22 6.87 8.87 4.76 12 4.76Z" />
     </svg>
   );
 }
@@ -38,26 +32,38 @@ function DiscordIcon() {
 }
 
 const BUTTON_CLASS =
-  'flex h-10 cursor-pointer items-center justify-center gap-2.5 rounded-md border border-line bg-raised text-sm font-medium transition-colors hover:bg-surface';
+  'flex h-10 cursor-pointer items-center justify-center gap-2.5 rounded-md border border-line bg-raised text-sm font-medium transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50';
 
-/** Direct OAuth entry points — the same client ids as mindlarp.com. */
 export function OAuthButtons() {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [error, setError] = useState('');
+
+  async function signIn(provider: 'google' | 'github' | 'discord') {
+    setBusy(provider);
+    setError('');
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=/chat` },
+    });
+    if (authError) {
+      setError(authError.message);
+      setBusy(null);
+    }
+  }
+
   return (
     <div className="flex flex-col gap-2.5">
-      {/* Full-page navigation is required: these routes redirect to the OAuth
-          provider, so next/link (client-side routing) must not be used. */}
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a href="/auth/oauth/google" className={BUTTON_CLASS}>
-        <GoogleIcon /> Continue with Google
-      </a>
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a href="/auth/oauth/github" className={BUTTON_CLASS}>
-        <GitHubIcon /> Continue with GitHub
-      </a>
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a href="/auth/oauth/discord" className={BUTTON_CLASS}>
-        <DiscordIcon /> Continue with Discord
-      </a>
+      <button type="button" disabled={busy !== null} onClick={() => signIn('google')} className={BUTTON_CLASS}>
+        <GoogleIcon /> {busy === 'google' ? 'Redirecting…' : 'Continue with Google'}
+      </button>
+      <button type="button" disabled={busy !== null} onClick={() => signIn('github')} className={BUTTON_CLASS}>
+        <GitHubIcon /> {busy === 'github' ? 'Redirecting…' : 'Continue with GitHub'}
+      </button>
+      <button type="button" disabled={busy !== null} onClick={() => signIn('discord')} className={BUTTON_CLASS}>
+        <DiscordIcon /> {busy === 'discord' ? 'Redirecting…' : 'Continue with Discord'}
+      </button>
+      {error && <p role="alert" className="text-xs text-danger">{error}</p>}
     </div>
   );
 }
